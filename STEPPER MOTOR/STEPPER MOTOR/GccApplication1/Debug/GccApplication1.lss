@@ -1,0 +1,408 @@
+
+GccApplication1.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         0000025c  00000000  00000000  00000054  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000000  00800060  00800060  000002b0  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .comment      00000030  00000000  00000000  000002b0  2**0
+                  CONTENTS, READONLY
+  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  000002e0  2**2
+                  CONTENTS, READONLY
+  4 .debug_aranges 00000020  00000000  00000000  0000031c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   00000982  00000000  00000000  0000033c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 000005b4  00000000  00000000  00000cbe  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   0000033c  00000000  00000000  00001272  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  00000024  00000000  00000000  000015b0  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    00000357  00000000  00000000  000015d4  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    00000480  00000000  00000000  0000192b  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 00000010  00000000  00000000  00001dab  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 2a 00 	jmp	0x54	; 0x54 <__ctors_end>
+   4:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+   8:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+   c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  10:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  14:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  18:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  1c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  20:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  24:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  28:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  2c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  30:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  34:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  38:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  3c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  40:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  44:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  48:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  4c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  50:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+
+00000054 <__ctors_end>:
+  54:	11 24       	eor	r1, r1
+  56:	1f be       	out	0x3f, r1	; 63
+  58:	cf e5       	ldi	r28, 0x5F	; 95
+  5a:	d8 e0       	ldi	r29, 0x08	; 8
+  5c:	de bf       	out	0x3e, r29	; 62
+  5e:	cd bf       	out	0x3d, r28	; 61
+  60:	0e 94 36 00 	call	0x6c	; 0x6c <main>
+  64:	0c 94 2c 01 	jmp	0x258	; 0x258 <_exit>
+
+00000068 <__bad_interrupt>:
+  68:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+0000006c <main>:
+#define stepper4 PC3 //Define PC3 as stepper motor controller pin 4B
+
+int main(void)
+{
+	int period;
+	DDRD = 0x0F;		/* Make PORTD lower pins as output */
+  6c:	8f e0       	ldi	r24, 0x0F	; 15
+  6e:	81 bb       	out	0x11, r24	; 17
+	period = 100;		/* Set period in between two steps */
+	while (1)
+	{
+		/* Rotate Stepper Motor clockwise with Half step sequence */
+		/* Rotate Stepper Motor clockwise with Half step sequence */
+		for(int i=0;i<12;i++)
+  70:	20 e0       	ldi	r18, 0x00	; 0
+  72:	30 e0       	ldi	r19, 0x00	; 0
+  74:	7a c0       	rjmp	.+244    	; 0x16a <main+0xfe>
+		{
+			PORTD = PORTD|0x09;
+  76:	82 b3       	in	r24, 0x12	; 18
+  78:	89 60       	ori	r24, 0x09	; 9
+  7a:	82 bb       	out	0x12, r24	; 18
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+  7c:	4f ef       	ldi	r20, 0xFF	; 255
+  7e:	80 e7       	ldi	r24, 0x70	; 112
+  80:	92 e0       	ldi	r25, 0x02	; 2
+  82:	41 50       	subi	r20, 0x01	; 1
+  84:	80 40       	sbci	r24, 0x00	; 0
+  86:	90 40       	sbci	r25, 0x00	; 0
+  88:	e1 f7       	brne	.-8      	; 0x82 <main+0x16>
+  8a:	00 c0       	rjmp	.+0      	; 0x8c <main+0x20>
+  8c:	00 00       	nop
+			_delay_ms(period);
+			PORTD = PORTD &(~(0x09));
+  8e:	82 b3       	in	r24, 0x12	; 18
+  90:	86 7f       	andi	r24, 0xF6	; 246
+  92:	82 bb       	out	0x12, r24	; 18
+			PORTD = PORTD|0x08;
+  94:	82 b3       	in	r24, 0x12	; 18
+  96:	88 60       	ori	r24, 0x08	; 8
+  98:	82 bb       	out	0x12, r24	; 18
+  9a:	4f ef       	ldi	r20, 0xFF	; 255
+  9c:	80 e7       	ldi	r24, 0x70	; 112
+  9e:	92 e0       	ldi	r25, 0x02	; 2
+  a0:	41 50       	subi	r20, 0x01	; 1
+  a2:	80 40       	sbci	r24, 0x00	; 0
+  a4:	90 40       	sbci	r25, 0x00	; 0
+  a6:	e1 f7       	brne	.-8      	; 0xa0 <main+0x34>
+  a8:	00 c0       	rjmp	.+0      	; 0xaa <main+0x3e>
+  aa:	00 00       	nop
+			_delay_ms(period);
+			PORTD = PORTD &(~(0x08));
+  ac:	82 b3       	in	r24, 0x12	; 18
+  ae:	87 7f       	andi	r24, 0xF7	; 247
+  b0:	82 bb       	out	0x12, r24	; 18
+			PORTD = PORTD|0x0C;
+  b2:	82 b3       	in	r24, 0x12	; 18
+  b4:	8c 60       	ori	r24, 0x0C	; 12
+  b6:	82 bb       	out	0x12, r24	; 18
+  b8:	4f ef       	ldi	r20, 0xFF	; 255
+  ba:	80 e7       	ldi	r24, 0x70	; 112
+  bc:	92 e0       	ldi	r25, 0x02	; 2
+  be:	41 50       	subi	r20, 0x01	; 1
+  c0:	80 40       	sbci	r24, 0x00	; 0
+  c2:	90 40       	sbci	r25, 0x00	; 0
+  c4:	e1 f7       	brne	.-8      	; 0xbe <main+0x52>
+  c6:	00 c0       	rjmp	.+0      	; 0xc8 <main+0x5c>
+  c8:	00 00       	nop
+			_delay_ms(period);
+			PORTD = PORTD &(~(0x0C));
+  ca:	82 b3       	in	r24, 0x12	; 18
+  cc:	83 7f       	andi	r24, 0xF3	; 243
+  ce:	82 bb       	out	0x12, r24	; 18
+			PORTD = PORTD|0x04;
+  d0:	82 b3       	in	r24, 0x12	; 18
+  d2:	84 60       	ori	r24, 0x04	; 4
+  d4:	82 bb       	out	0x12, r24	; 18
+  d6:	4f ef       	ldi	r20, 0xFF	; 255
+  d8:	80 e7       	ldi	r24, 0x70	; 112
+  da:	92 e0       	ldi	r25, 0x02	; 2
+  dc:	41 50       	subi	r20, 0x01	; 1
+  de:	80 40       	sbci	r24, 0x00	; 0
+  e0:	90 40       	sbci	r25, 0x00	; 0
+  e2:	e1 f7       	brne	.-8      	; 0xdc <main+0x70>
+  e4:	00 c0       	rjmp	.+0      	; 0xe6 <main+0x7a>
+  e6:	00 00       	nop
+			_delay_ms(period);
+			PORTD = PORTD &(~(0x04));
+  e8:	82 b3       	in	r24, 0x12	; 18
+  ea:	8b 7f       	andi	r24, 0xFB	; 251
+  ec:	82 bb       	out	0x12, r24	; 18
+			PORTD = PORTD|0x06;
+  ee:	82 b3       	in	r24, 0x12	; 18
+  f0:	86 60       	ori	r24, 0x06	; 6
+  f2:	82 bb       	out	0x12, r24	; 18
+  f4:	4f ef       	ldi	r20, 0xFF	; 255
+  f6:	80 e7       	ldi	r24, 0x70	; 112
+  f8:	92 e0       	ldi	r25, 0x02	; 2
+  fa:	41 50       	subi	r20, 0x01	; 1
+  fc:	80 40       	sbci	r24, 0x00	; 0
+  fe:	90 40       	sbci	r25, 0x00	; 0
+ 100:	e1 f7       	brne	.-8      	; 0xfa <main+0x8e>
+ 102:	00 c0       	rjmp	.+0      	; 0x104 <main+0x98>
+ 104:	00 00       	nop
+			_delay_ms(period);
+			PORTD = PORTD &(~(0x06));
+ 106:	82 b3       	in	r24, 0x12	; 18
+ 108:	89 7f       	andi	r24, 0xF9	; 249
+ 10a:	82 bb       	out	0x12, r24	; 18
+			PORTD = PORTD|0x02;
+ 10c:	82 b3       	in	r24, 0x12	; 18
+ 10e:	82 60       	ori	r24, 0x02	; 2
+ 110:	82 bb       	out	0x12, r24	; 18
+ 112:	4f ef       	ldi	r20, 0xFF	; 255
+ 114:	80 e7       	ldi	r24, 0x70	; 112
+ 116:	92 e0       	ldi	r25, 0x02	; 2
+ 118:	41 50       	subi	r20, 0x01	; 1
+ 11a:	80 40       	sbci	r24, 0x00	; 0
+ 11c:	90 40       	sbci	r25, 0x00	; 0
+ 11e:	e1 f7       	brne	.-8      	; 0x118 <main+0xac>
+ 120:	00 c0       	rjmp	.+0      	; 0x122 <main+0xb6>
+ 122:	00 00       	nop
+			_delay_ms(period);
+			PORTD = PORTD &(~(0x02));
+ 124:	82 b3       	in	r24, 0x12	; 18
+ 126:	8d 7f       	andi	r24, 0xFD	; 253
+ 128:	82 bb       	out	0x12, r24	; 18
+			PORTD = PORTD|0x03;
+ 12a:	82 b3       	in	r24, 0x12	; 18
+ 12c:	83 60       	ori	r24, 0x03	; 3
+ 12e:	82 bb       	out	0x12, r24	; 18
+ 130:	4f ef       	ldi	r20, 0xFF	; 255
+ 132:	80 e7       	ldi	r24, 0x70	; 112
+ 134:	92 e0       	ldi	r25, 0x02	; 2
+ 136:	41 50       	subi	r20, 0x01	; 1
+ 138:	80 40       	sbci	r24, 0x00	; 0
+ 13a:	90 40       	sbci	r25, 0x00	; 0
+ 13c:	e1 f7       	brne	.-8      	; 0x136 <main+0xca>
+ 13e:	00 c0       	rjmp	.+0      	; 0x140 <main+0xd4>
+ 140:	00 00       	nop
+			_delay_ms(period);
+			PORTD = PORTD &(~(0x03));
+ 142:	82 b3       	in	r24, 0x12	; 18
+ 144:	8c 7f       	andi	r24, 0xFC	; 252
+ 146:	82 bb       	out	0x12, r24	; 18
+			PORTD = PORTD|0x01;
+ 148:	82 b3       	in	r24, 0x12	; 18
+ 14a:	81 60       	ori	r24, 0x01	; 1
+ 14c:	82 bb       	out	0x12, r24	; 18
+ 14e:	4f ef       	ldi	r20, 0xFF	; 255
+ 150:	80 e7       	ldi	r24, 0x70	; 112
+ 152:	92 e0       	ldi	r25, 0x02	; 2
+ 154:	41 50       	subi	r20, 0x01	; 1
+ 156:	80 40       	sbci	r24, 0x00	; 0
+ 158:	90 40       	sbci	r25, 0x00	; 0
+ 15a:	e1 f7       	brne	.-8      	; 0x154 <main+0xe8>
+ 15c:	00 c0       	rjmp	.+0      	; 0x15e <main+0xf2>
+ 15e:	00 00       	nop
+			_delay_ms(period);
+			PORTD = PORTD &(~(0x01));
+ 160:	82 b3       	in	r24, 0x12	; 18
+ 162:	8e 7f       	andi	r24, 0xFE	; 254
+ 164:	82 bb       	out	0x12, r24	; 18
+	period = 100;		/* Set period in between two steps */
+	while (1)
+	{
+		/* Rotate Stepper Motor clockwise with Half step sequence */
+		/* Rotate Stepper Motor clockwise with Half step sequence */
+		for(int i=0;i<12;i++)
+ 166:	2f 5f       	subi	r18, 0xFF	; 255
+ 168:	3f 4f       	sbci	r19, 0xFF	; 255
+ 16a:	2c 30       	cpi	r18, 0x0C	; 12
+ 16c:	31 05       	cpc	r19, r1
+ 16e:	0c f4       	brge	.+2      	; 0x172 <main+0x106>
+ 170:	82 cf       	rjmp	.-252    	; 0x76 <main+0xa>
+			PORTD = PORTD|0x01;
+			_delay_ms(period);
+			PORTD = PORTD &(~(0x01));
+			
+		}
+		PORTD =PORTD | 0x09;		/* Last step to initial position */
+ 172:	82 b3       	in	r24, 0x12	; 18
+ 174:	89 60       	ori	r24, 0x09	; 9
+ 176:	82 bb       	out	0x12, r24	; 18
+ 178:	2f ef       	ldi	r18, 0xFF	; 255
+ 17a:	40 e7       	ldi	r20, 0x70	; 112
+ 17c:	82 e0       	ldi	r24, 0x02	; 2
+ 17e:	21 50       	subi	r18, 0x01	; 1
+ 180:	40 40       	sbci	r20, 0x00	; 0
+ 182:	80 40       	sbci	r24, 0x00	; 0
+ 184:	e1 f7       	brne	.-8      	; 0x17e <main+0x112>
+ 186:	00 c0       	rjmp	.+0      	; 0x188 <main+0x11c>
+ 188:	00 00       	nop
+ 18a:	9f ef       	ldi	r25, 0xFF	; 255
+ 18c:	29 e6       	ldi	r18, 0x69	; 105
+ 18e:	48 e1       	ldi	r20, 0x18	; 24
+ 190:	91 50       	subi	r25, 0x01	; 1
+ 192:	20 40       	sbci	r18, 0x00	; 0
+ 194:	40 40       	sbci	r20, 0x00	; 0
+ 196:	e1 f7       	brne	.-8      	; 0x190 <main+0x124>
+ 198:	00 c0       	rjmp	.+0      	; 0x19a <main+0x12e>
+ 19a:	00 00       	nop
+		_delay_ms(period);
+		_delay_ms(1000);
+
+		/* Rotate Stepper Motor Anticlockwise with Full step sequence */
+		for(int i=0;i<12;i++)
+ 19c:	20 e0       	ldi	r18, 0x00	; 0
+ 19e:	30 e0       	ldi	r19, 0x00	; 0
+ 1a0:	3e c0       	rjmp	.+124    	; 0x21e <main+0x1b2>
+		{
+			PORTD = PORTD|0x09;
+ 1a2:	82 b3       	in	r24, 0x12	; 18
+ 1a4:	89 60       	ori	r24, 0x09	; 9
+ 1a6:	82 bb       	out	0x12, r24	; 18
+ 1a8:	8f ef       	ldi	r24, 0xFF	; 255
+ 1aa:	90 e7       	ldi	r25, 0x70	; 112
+ 1ac:	42 e0       	ldi	r20, 0x02	; 2
+ 1ae:	81 50       	subi	r24, 0x01	; 1
+ 1b0:	90 40       	sbci	r25, 0x00	; 0
+ 1b2:	40 40       	sbci	r20, 0x00	; 0
+ 1b4:	e1 f7       	brne	.-8      	; 0x1ae <main+0x142>
+ 1b6:	00 c0       	rjmp	.+0      	; 0x1b8 <main+0x14c>
+ 1b8:	00 00       	nop
+			_delay_ms(period);
+			PORTD = PORTD &(~(0x09));
+ 1ba:	82 b3       	in	r24, 0x12	; 18
+ 1bc:	86 7f       	andi	r24, 0xF6	; 246
+ 1be:	82 bb       	out	0x12, r24	; 18
+			PORTD = PORTD|0x03;
+ 1c0:	82 b3       	in	r24, 0x12	; 18
+ 1c2:	83 60       	ori	r24, 0x03	; 3
+ 1c4:	82 bb       	out	0x12, r24	; 18
+ 1c6:	8f ef       	ldi	r24, 0xFF	; 255
+ 1c8:	90 e7       	ldi	r25, 0x70	; 112
+ 1ca:	42 e0       	ldi	r20, 0x02	; 2
+ 1cc:	81 50       	subi	r24, 0x01	; 1
+ 1ce:	90 40       	sbci	r25, 0x00	; 0
+ 1d0:	40 40       	sbci	r20, 0x00	; 0
+ 1d2:	e1 f7       	brne	.-8      	; 0x1cc <main+0x160>
+ 1d4:	00 c0       	rjmp	.+0      	; 0x1d6 <main+0x16a>
+ 1d6:	00 00       	nop
+			_delay_ms(period);
+			PORTD = PORTD &(~(0x03));
+ 1d8:	82 b3       	in	r24, 0x12	; 18
+ 1da:	8c 7f       	andi	r24, 0xFC	; 252
+ 1dc:	82 bb       	out	0x12, r24	; 18
+			PORTD = PORTD|0x06;
+ 1de:	82 b3       	in	r24, 0x12	; 18
+ 1e0:	86 60       	ori	r24, 0x06	; 6
+ 1e2:	82 bb       	out	0x12, r24	; 18
+ 1e4:	8f ef       	ldi	r24, 0xFF	; 255
+ 1e6:	90 e7       	ldi	r25, 0x70	; 112
+ 1e8:	42 e0       	ldi	r20, 0x02	; 2
+ 1ea:	81 50       	subi	r24, 0x01	; 1
+ 1ec:	90 40       	sbci	r25, 0x00	; 0
+ 1ee:	40 40       	sbci	r20, 0x00	; 0
+ 1f0:	e1 f7       	brne	.-8      	; 0x1ea <main+0x17e>
+ 1f2:	00 c0       	rjmp	.+0      	; 0x1f4 <main+0x188>
+ 1f4:	00 00       	nop
+			_delay_ms(period);
+			PORTD = PORTD &(~(0x06));
+ 1f6:	82 b3       	in	r24, 0x12	; 18
+ 1f8:	89 7f       	andi	r24, 0xF9	; 249
+ 1fa:	82 bb       	out	0x12, r24	; 18
+			PORTD = PORTD|0x0C;
+ 1fc:	82 b3       	in	r24, 0x12	; 18
+ 1fe:	8c 60       	ori	r24, 0x0C	; 12
+ 200:	82 bb       	out	0x12, r24	; 18
+ 202:	8f ef       	ldi	r24, 0xFF	; 255
+ 204:	90 e7       	ldi	r25, 0x70	; 112
+ 206:	42 e0       	ldi	r20, 0x02	; 2
+ 208:	81 50       	subi	r24, 0x01	; 1
+ 20a:	90 40       	sbci	r25, 0x00	; 0
+ 20c:	40 40       	sbci	r20, 0x00	; 0
+ 20e:	e1 f7       	brne	.-8      	; 0x208 <main+0x19c>
+ 210:	00 c0       	rjmp	.+0      	; 0x212 <main+0x1a6>
+ 212:	00 00       	nop
+			_delay_ms(period);
+			PORTD = PORTD &(~(0x0C));
+ 214:	82 b3       	in	r24, 0x12	; 18
+ 216:	83 7f       	andi	r24, 0xF3	; 243
+ 218:	82 bb       	out	0x12, r24	; 18
+		PORTD =PORTD | 0x09;		/* Last step to initial position */
+		_delay_ms(period);
+		_delay_ms(1000);
+
+		/* Rotate Stepper Motor Anticlockwise with Full step sequence */
+		for(int i=0;i<12;i++)
+ 21a:	2f 5f       	subi	r18, 0xFF	; 255
+ 21c:	3f 4f       	sbci	r19, 0xFF	; 255
+ 21e:	2c 30       	cpi	r18, 0x0C	; 12
+ 220:	31 05       	cpc	r19, r1
+ 222:	0c f4       	brge	.+2      	; 0x226 <main+0x1ba>
+ 224:	be cf       	rjmp	.-132    	; 0x1a2 <main+0x136>
+			PORTD = PORTD &(~(0x06));
+			PORTD = PORTD|0x0C;
+			_delay_ms(period);
+			PORTD = PORTD &(~(0x0C));
+		}
+		PORTD = PORTD|0x09;
+ 226:	82 b3       	in	r24, 0x12	; 18
+ 228:	89 60       	ori	r24, 0x09	; 9
+ 22a:	82 bb       	out	0x12, r24	; 18
+ 22c:	8f ef       	ldi	r24, 0xFF	; 255
+ 22e:	90 e7       	ldi	r25, 0x70	; 112
+ 230:	22 e0       	ldi	r18, 0x02	; 2
+ 232:	81 50       	subi	r24, 0x01	; 1
+ 234:	90 40       	sbci	r25, 0x00	; 0
+ 236:	20 40       	sbci	r18, 0x00	; 0
+ 238:	e1 f7       	brne	.-8      	; 0x232 <main+0x1c6>
+ 23a:	00 c0       	rjmp	.+0      	; 0x23c <main+0x1d0>
+ 23c:	00 00       	nop
+		_delay_ms(period);
+		PORTD = PORTD &(~(0x09));
+ 23e:	82 b3       	in	r24, 0x12	; 18
+ 240:	86 7f       	andi	r24, 0xF6	; 246
+ 242:	82 bb       	out	0x12, r24	; 18
+ 244:	4f ef       	ldi	r20, 0xFF	; 255
+ 246:	89 e6       	ldi	r24, 0x69	; 105
+ 248:	98 e1       	ldi	r25, 0x18	; 24
+ 24a:	41 50       	subi	r20, 0x01	; 1
+ 24c:	80 40       	sbci	r24, 0x00	; 0
+ 24e:	90 40       	sbci	r25, 0x00	; 0
+ 250:	e1 f7       	brne	.-8      	; 0x24a <main+0x1de>
+ 252:	00 c0       	rjmp	.+0      	; 0x254 <main+0x1e8>
+ 254:	00 00       	nop
+ 256:	0c cf       	rjmp	.-488    	; 0x70 <main+0x4>
+
+00000258 <_exit>:
+ 258:	f8 94       	cli
+
+0000025a <__stop_program>:
+ 25a:	ff cf       	rjmp	.-2      	; 0x25a <__stop_program>
